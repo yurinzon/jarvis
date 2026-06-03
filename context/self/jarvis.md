@@ -56,6 +56,7 @@ The voice loop provides:
 ## Recent Activity (Last 14 Days)
 
 ```
+8582ff6 Track A: Agent Infrastructure — AgentRegistry, SkillRegistry, AgentFactory + tests + self-knowledge generators
 6f5ea18 Phase 5: System prompt injection (prompt-assembly.ts)
 078c749 Phase 4: Pre-commit hook + CI workflow
 4214e01 Phase 2+3: Generators, drift checker, orchestrator, CLI
