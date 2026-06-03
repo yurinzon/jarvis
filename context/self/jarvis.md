@@ -50,6 +50,7 @@ The voice loop provides:
 ## Recent Activity (Last 14 Days)
 
 ```
+078c749 Phase 4: Pre-commit hook + CI workflow
 4214e01 Phase 2+3: Generators, drift checker, orchestrator, CLI
 3fd1cac Phase 1: Doc scaffold + block parser + tests (fix .gitignore)
 b102648 Phase 1: Doc scaffold + block parser + tests
