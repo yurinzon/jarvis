@@ -56,6 +56,7 @@ The voice loop provides:
 ## Recent Activity (Last 14 Days)
 
 ```
+0891f3a Track B + C: Blob UI (React Three Fiber sphere) & Dashboard (NOVA Integration with layout, agent management, deployments)
 8582ff6 Track A: Agent Infrastructure — AgentRegistry, SkillRegistry, AgentFactory + tests + self-knowledge generators
 6f5ea18 Phase 5: System prompt injection (prompt-assembly.ts)
 078c749 Phase 4: Pre-commit hook + CI workflow
