@@ -16,9 +16,15 @@ _No capabilities registered._
 ## Sub-Agents
 
 <!-- AUTO-START: subagents -->
-<!-- No sub-agents found. Add agent definitions to `src/agents/`. -->
+## Registered Sub-Agents
 
-_No sub-agents registered._
+| Agent | Description | Config |
+|-------|-------------|--------|
+| **AgentFactory** | Agent defined in AgentFactory.ts | `src/agents/AgentFactory.ts` |
+| **AgentFactory.test** | Agent defined in AgentFactory.test.ts | `src/agents/AgentFactory.test.ts` |
+| **AgentRegistry** | Agent defined in AgentRegistry.ts | `src/agents/AgentRegistry.ts` |
+| **AgentRegistry.test** | Agent defined in AgentRegistry.test.ts | `src/agents/AgentRegistry.test.ts` |
+
 <!-- AUTO-END: subagents -->
 
 ## Integrations
@@ -50,6 +56,7 @@ The voice loop provides:
 ## Recent Activity (Last 14 Days)
 
 ```
+6f5ea18 Phase 5: System prompt injection (prompt-assembly.ts)
 078c749 Phase 4: Pre-commit hook + CI workflow
 4214e01 Phase 2+3: Generators, drift checker, orchestrator, CLI
 3fd1cac Phase 1: Doc scaffold + block parser + tests (fix .gitignore)

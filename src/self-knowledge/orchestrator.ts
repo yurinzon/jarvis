@@ -16,6 +16,8 @@ import { renderSubAgents } from "./generators/subagents.js";
 import { renderIntegrations } from "./generators/integrations.js";
 import { renderVoice } from "./generators/voice.js";
 import { renderRecentActivity } from "./generators/recent-activity.js";
+import { renderAgents } from "./generators/agents.js";
+import { renderSkills } from "./generators/skills.js";
 import { checkDrift, printFindings } from "./drift-checker.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -35,6 +37,8 @@ export function generateFullDoc(): RenderResult {
   const blocks: Record<string, string> = {
     capabilities: renderCapabilities(),
     subagents: renderSubAgents(),
+    agents: renderAgents(),
+    skills: renderSkills(),
     integrations: renderIntegrations(),
     voice: renderVoice(),
     "recent-activity": renderRecentActivity(),

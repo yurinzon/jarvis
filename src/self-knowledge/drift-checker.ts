@@ -73,6 +73,8 @@ export function checkDrift(): DriftFinding[] {
   const expectedBlocks = [
     "capabilities",
     "subagents",
+    "agents",
+    "skills",
     "integrations",
     "voice",
     "recent-activity",
