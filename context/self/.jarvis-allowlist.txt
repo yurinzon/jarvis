@@ -1,0 +1,6 @@
+# J.A.R.V.I.S. Self-Knowledge Drift Allowlist
+# One pattern per line. Lines starting with # are ignored.
+# If a drift finding's reference contains any of these patterns,
+# it will be silently ignored during soft and strict checks.
+#
+# Use this sparingly — only for known intentional discrepancies.

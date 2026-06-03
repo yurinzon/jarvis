@@ -8,31 +8,53 @@
 J.A.R.V.I.S. (Just A Rather Very Intelligent System) is an autonomous AI command center that orchestrates agents, manages integrations, provides real-time voice/visual feedback, and grounds its self-knowledge in its own codebase.
 
 <!-- AUTO-START: capabilities -->
-<!-- Capabilities will be rendered here by self-knowledge generators -->
+<!-- No tools registered yet. Add tool files to `src/tools/` and import ToolRegistry. -->
+
+_No capabilities registered._
 <!-- AUTO-END: capabilities -->
 
 ## Sub-Agents
 
 <!-- AUTO-START: subagents -->
-<!-- Sub-agents will be rendered here by self-knowledge generators -->
+<!-- No sub-agents found. Add agent definitions to `src/agents/`. -->
+
+_No sub-agents registered._
 <!-- AUTO-END: subagents -->
 
 ## Integrations
 
 <!-- AUTO-START: integrations -->
-<!-- Integrations will be rendered here by self-knowledge generators -->
+<!-- No integrations configured. Add integration files to `src/integrations/`. -->
+
+_No integrations registered._
 <!-- AUTO-END: integrations -->
 
 ## Voice Loop
 
 <!-- AUTO-START: voice -->
-<!-- Voice loop architecture will be rendered here by self-knowledge generators -->
+## Voice Loop Architecture
+
+Voice directory exists but contains no source files.
+
+The voice loop provides:
+- Speech-to-text (STT) input processing
+- Text-to-speech (TTS) output generation
+- Real-time audio streaming
+- Wake word detection
+
 <!-- AUTO-END: voice -->
 
 ## Recent Activity
 
 <!-- AUTO-START: recent-activity -->
-<!-- Recent activity will be rendered here by self-knowledge generators -->
+## Recent Activity (Last 14 Days)
+
+```
+3fd1cac Phase 1: Doc scaffold + block parser + tests (fix .gitignore)
+b102648 Phase 1: Doc scaffold + block parser + tests
+d54d07f Initial J.A.R.V.I.S. commit — project scaffold + README
+```
+
 <!-- AUTO-END: recent-activity -->
 
 ## Core Principles
