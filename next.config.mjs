@@ -1,9 +1,12 @@
 /** @type {import('next').NextConfig} */
-/** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "export",
   transpilePackages: ["three"],
   experimental: {
     optimizePackageImports: ["three", "@react-three/fiber", "@react-three/drei"],
+  },
+  images: {
+    unoptimized: true,
   },
 };
 

@@ -56,6 +56,7 @@ The voice loop provides:
 ## Recent Activity (Last 14 Days)
 
 ```
+af5b1f0 fix: Build fixes — BlobSphere bufferAttrib, tsconfig rootDir, next.config.mjs
 46960d9 docs: Update README with full Track A/B/C architecture, project structure, and status
 0891f3a Track B + C: Blob UI (React Three Fiber sphere) & Dashboard (NOVA Integration with layout, agent management, deployments)
 8582ff6 Track A: Agent Infrastructure — AgentRegistry, SkillRegistry, AgentFactory + tests + self-knowledge generators
