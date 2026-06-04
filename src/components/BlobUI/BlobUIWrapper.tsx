@@ -72,11 +72,11 @@ export default function BlobUIWrapper() {
         onSensitivityChange={setSensitivity}
       />
 
-      {/* Voice toggle (bottom center) */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+      {/* Voice toggle (bottom center) — pushed up on mobile to avoid bottom sheet */}
+      <div className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-40">
         <button
           onClick={toggleSpeaking}
-          className={`px-4 py-2 rounded-full text-xs font-medium transition-all ${
+          className={`px-4 py-2 min-h-[44px] rounded-full text-xs sm:text-xs font-medium transition-all ${
             isSpeaking
               ? "bg-jarvis-neon/30 text-jarvis-neon border border-jarvis-neon/50"
               : "glass text-jarvis-muted hover:text-white"

@@ -54,21 +54,22 @@ const statusConfig: Record<string, { dot: string; label: string }> = {
 
 export default function DeploymentsPage() {
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 sm:space-y-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-white">Deployments</h1>
-          <p className="text-sm text-jarvis-muted mt-1">
+          <h1 className="text-xl sm:text-2xl font-bold text-white">Deployments</h1>
+          <p className="text-xs sm:text-sm text-jarvis-muted mt-0.5 sm:mt-1">
             Manage running services and rollbacks
           </p>
         </div>
-        <button className="px-4 py-2 rounded-lg bg-jarvis-neon text-white text-sm font-medium hover:bg-jarvis-accent-hover transition-colors">
+        <button className="px-4 py-2 min-h-[44px] rounded-lg bg-jarvis-neon text-white text-sm font-medium hover:bg-jarvis-accent-hover transition-colors self-start sm:self-auto">
           + New Deployment
         </button>
       </div>
 
-      {/* Deployment table */}
-      <div className="glass rounded-xl overflow-hidden">
+      {/* ── Desktop Table (hidden on mobile) ── */}
+      <div className="hidden sm:block glass rounded-xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
@@ -130,6 +131,47 @@ export default function DeploymentsPage() {
             </tbody>
           </table>
         </div>
+      </div>
+
+      {/* ── Mobile Card View (hidden on desktop) ── */}
+      <div className="sm:hidden space-y-3">
+        {deployments.map((dep) => {
+          const s = statusConfig[dep.status];
+          return (
+            <div
+              key={dep.id}
+              className="glass rounded-xl p-3 space-y-2"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-semibold text-white">
+                  {dep.name}
+                </span>
+                <span className={`status-dot ${s.dot}`} />
+              </div>
+              <div className="flex items-center gap-2 text-xs text-jarvis-muted">
+                <span>Version:</span>
+                <code className="text-xs bg-jarvis-card px-1.5 py-0.5 rounded text-jarvis-text">
+                  {dep.version}
+                </code>
+              </div>
+              <div className="flex items-center gap-2 text-xs">
+                <span className="text-jarvis-muted">Status:</span>
+                <span className="text-jarvis-text">{s.label}</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs">
+                <span className="text-jarvis-muted">Uptime:</span>
+                <span className="text-jarvis-text">{dep.uptime}</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs">
+                <span className="text-jarvis-muted">Last Deployed:</span>
+                <span className="text-jarvis-text">{dep.lastDeployed}</span>
+              </div>
+              <button className="w-full mt-1 py-2 min-h-[44px] rounded-lg text-xs text-jarvis-neon bg-jarvis-neon/10 hover:bg-jarvis-neon/20 transition-colors">
+                ▲ More Details
+              </button>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

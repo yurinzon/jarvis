@@ -15,17 +15,17 @@ interface StatsGridProps {
 
 export default function StatsGrid({ stats }: StatsGridProps) {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
       {stats.map((stat) => (
         <div
           key={stat.label}
-          className="glass rounded-xl p-4"
+          className="glass rounded-xl p-3 sm:p-4"
         >
-          <div className="text-xs text-jarvis-muted mb-1">{stat.label}</div>
-          <div className="text-2xl font-semibold text-white">{stat.value}</div>
+          <div className="text-[10px] sm:text-xs text-jarvis-muted mb-1">{stat.label}</div>
+          <div className="text-lg sm:text-xl lg:text-2xl font-semibold text-white">{stat.value}</div>
           {stat.delta && (
             <div
-              className={`text-xs mt-1 ${
+              className={`text-[10px] sm:text-xs mt-1 ${
                 stat.deltaPositive
                   ? "text-jarvis-green"
                   : "text-jarvis-red"

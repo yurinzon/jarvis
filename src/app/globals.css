@@ -37,7 +37,110 @@ a {
   text-decoration: none;
 }
 
-/* Scrollbar styling */
+/* ── Glassmorphism Card ── */
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-hover {
+  transition: all 0.2s ease;
+}
+
+.glass-hover:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(99, 102, 241, 0.2);
+}
+
+/* ── Status Dots ── */
+.status-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.status-dot--active {
+  background: #22c55e;
+  box-shadow: 0 0 6px rgba(34, 197, 94, 0.5);
+}
+
+.status-dot--idle {
+  background: #eab308;
+  box-shadow: 0 0 6px rgba(234, 179, 8, 0.4);
+}
+
+.status-dot--error {
+  background: #ef4444;
+  box-shadow: 0 0 6px rgba(239, 68, 68, 0.5);
+}
+
+/* ── Responsive Text Utilities ── */
+@utility responsive-text-xs {
+  font-size: 10px;
+}
+@utility responsive-text-sm {
+  font-size: 12px;
+}
+@utility responsive-text-base {
+  font-size: 14px;
+}
+@utility responsive-text-lg {
+  font-size: 16px;
+}
+@utility responsive-text-xl {
+  font-size: 18px;
+}
+@utility responsive-text-2xl {
+  font-size: 20px;
+}
+
+@media (width >= 640px) {
+  @utility responsive-text-xs {
+    font-size: 11px;
+  }
+  @utility responsive-text-sm {
+    font-size: 13px;
+  }
+  @utility responsive-text-base {
+    font-size: 15px;
+  }
+  @utility responsive-text-lg {
+    font-size: 18px;
+  }
+  @utility responsive-text-xl {
+    font-size: 22px;
+  }
+  @utility responsive-text-2xl {
+    font-size: 26px;
+  }
+}
+
+@media (width >= 1024px) {
+  @utility responsive-text-xs {
+    font-size: 12px;
+  }
+  @utility responsive-text-sm {
+    font-size: 14px;
+  }
+  @utility responsive-text-base {
+    font-size: 16px;
+  }
+  @utility responsive-text-lg {
+    font-size: 20px;
+  }
+  @utility responsive-text-xl {
+    font-size: 26px;
+  }
+  @utility responsive-text-2xl {
+    font-size: 32px;
+  }
+}
+
+/* ── Scrollbar ── */
 ::-webkit-scrollbar {
   width: 6px;
 }

@@ -30,18 +30,18 @@ const statusColors: Record<string, string> = {
 export default function ActivityFeed({ activities }: ActivityFeedProps) {
   if (activities.length === 0) {
     return (
-      <div className="glass rounded-xl p-6 text-center">
-        <p className="text-jarvis-muted text-sm">No recent activity</p>
+      <div className="glass rounded-xl p-4 sm:p-6 text-center">
+        <p className="text-jarvis-muted text-xs sm:text-sm">No recent activity</p>
       </div>
     );
   }
 
   return (
-    <div className="glass rounded-xl p-4">
-      <h3 className="text-sm font-semibold text-white mb-3">
+    <div className="glass rounded-xl p-3 sm:p-4">
+      <h3 className="text-xs sm:text-sm font-semibold text-white mb-2 sm:mb-3">
         Real-Time Activity
       </h3>
-      <div className="space-y-2">
+      <div className="space-y-1 sm:space-y-2">
         {activities.map((item) => (
           <div
             key={item.id}

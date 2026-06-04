@@ -56,6 +56,7 @@ The voice loop provides:
 ## Recent Activity (Last 14 Days)
 
 ```
+0155185 feat: Static export config + deploy
 af5b1f0 fix: Build fixes — BlobSphere bufferAttrib, tsconfig rootDir, next.config.mjs
 46960d9 docs: Update README with full Track A/B/C architecture, project structure, and status
 0891f3a Track B + C: Blob UI (React Three Fiber sphere) & Dashboard (NOVA Integration with layout, agent management, deployments)

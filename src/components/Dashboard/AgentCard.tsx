@@ -30,20 +30,20 @@ export default function AgentCard({
   const s = statusConfig[status];
 
   return (
-    <div className="glass rounded-xl p-4 glass-hover">
+    <div className="glass rounded-xl p-3 sm:p-4 glass-hover">
       {/* Header */}
-      <div className="flex items-start justify-between mb-3">
+      <div className="flex items-start justify-between mb-2 sm:mb-3">
         <div className="flex items-center gap-2">
           <span className={`status-dot ${s.dot}`} />
           <div>
-            <h3 className="text-sm font-semibold text-white">{name}</h3>
-            <span className="text-xs text-jarvis-muted">{model}</span>
+            <h3 className="text-xs sm:text-sm font-semibold text-white">{name}</h3>
+            <span className="text-[10px] sm:text-xs text-jarvis-muted">{model}</span>
           </div>
         </div>
         {onToggle && (
           <button
             onClick={onToggle}
-            className="text-xs px-2 py-1 rounded-md bg-jarvis-neon/20 text-jarvis-neon hover:bg-jarvis-neon/30 transition-colors"
+            className="text-[10px] sm:text-xs px-2 py-1 min-h-[28px] rounded-md bg-jarvis-neon/20 text-jarvis-neon hover:bg-jarvis-neon/30 transition-colors"
           >
             {status === "active" ? "Deactivate" : "Activate"}
           </button>

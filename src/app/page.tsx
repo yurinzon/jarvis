@@ -31,28 +31,28 @@ export default function HomePage() {
         <BlobUIWrapper />
 
         {/* Overlay text */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 text-center pointer-events-none z-10">
-          <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-jarvis-neon via-jarvis-purple to-jarvis-neon bg-clip-text text-transparent animate-pulse">
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 text-center pointer-events-none z-10 w-full px-4">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold bg-gradient-to-r from-jarvis-neon via-jarvis-purple to-jarvis-neon bg-clip-text text-transparent animate-pulse">
             J.A.R.V.I.S.
           </h1>
-          <p className="text-jarvis-muted text-sm mt-2 tracking-widest uppercase">
+          <p className="text-jarvis-muted text-[10px] sm:text-sm mt-2 tracking-widest uppercase">
             Just A Rather Very Intelligent System
           </p>
         </div>
 
         {/* Bottom actions */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-4 z-10">
+        <div className="absolute bottom-20 sm:bottom-8 left-1/2 -translate-x-1/2 flex gap-4 z-10">
           <Link
             href="/dashboard"
-            className="px-6 py-2.5 rounded-full bg-jarvis-neon text-white text-sm font-medium hover:bg-jarvis-accent-hover transition-all shadow-lg shadow-jarvis-neon/25"
+            className="px-5 sm:px-6 py-3 sm:py-2.5 min-h-[44px] rounded-full bg-jarvis-neon text-white text-xs sm:text-sm font-medium hover:bg-jarvis-accent-hover transition-all shadow-lg shadow-jarvis-neon/25"
           >
             Enter Command Center
           </Link>
         </div>
 
         {/* Voice prompt */}
-        <div className="absolute bottom-24 left-1/2 -translate-x-1/2 pointer-events-none z-10">
-          <p className="text-xs text-jarvis-muted tracking-widest">
+        <div className="absolute bottom-36 sm:bottom-24 left-1/2 -translate-x-1/2 pointer-events-none z-10">
+          <p className="text-[10px] sm:text-xs text-jarvis-muted tracking-widest">
             Say &ldquo;J.A.R.V.I.S.&rdquo; to activate
           </p>
         </div>
@@ -70,7 +70,7 @@ export default function HomePage() {
             : "opacity-0 translate-y-8"
         }`}
       >
-        <h1 className="text-6xl md:text-8xl font-bold text-white tracking-tight">
+        <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold text-white tracking-tight px-4 text-center">
           <span className="bg-gradient-to-r from-jarvis-neon via-jarvis-purple to-transparent bg-clip-text text-transparent">
             J.A.R.V.I.S.
           </span>
