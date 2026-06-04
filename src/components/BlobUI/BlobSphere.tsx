@@ -30,8 +30,8 @@ function BlobMesh({
     return geo;
   }, [size]);
 
-  // Particle ring
-  const [particlePositions, particleColors] = useMemo(() => {
+  // Particle geometry (pre-built to avoid R3F bufferAttribute TS issues)
+  const particleGeo = useMemo(() => {
     const count = 1200;
     const positions = new Float32Array(count * 3);
     const colors = new Float32Array(count * 3);
@@ -55,10 +55,10 @@ function BlobMesh({
       colors[i * 3 + 2] = c.b;
     }
 
-    return [
-      new THREE.BufferAttribute(positions, 3),
-      new THREE.BufferAttribute(colors, 3),
-    ];
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    geo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+    return geo;
   }, [size, color]);
 
   useFrame(({ clock }) => {
@@ -138,7 +138,7 @@ function BlobMesh({
       </mesh>
 
       {/* Wireframe overlay */}
-      <mesh ref={meshRef}>
+      <mesh>
         <icosahedronGeometry args={[size * 1.01, 32]} />
         <meshBasicMaterial
           color={color}
@@ -149,15 +149,12 @@ function BlobMesh({
       </mesh>
 
       {/* Particle ring */}
-      <points ref={ringRef}>
-        <bufferGeometry>
-          <bufferAttribute {...particlePositions} />
-          <bufferAttribute {...particleColors} />
-        </bufferGeometry>
+      <points ref={ringRef} geometry={particleGeo}>
         <pointsMaterial
           size={0.02}
           transparent
           opacity={0.6}
+          vertexColors
           blending={THREE.AdditiveBlending}
           depthWrite={false}
         />
