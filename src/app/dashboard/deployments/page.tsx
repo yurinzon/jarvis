@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 
 interface Deployment {
   id: string;
@@ -11,7 +11,7 @@ interface Deployment {
   lastDeployed: string;
 }
 
-const deployments: Deployment[] = [
+const initialDeployments: Deployment[] = [
   {
     id: "d-001",
     name: "Researcher Agent",
@@ -52,127 +52,132 @@ const statusConfig: Record<string, { dot: string; label: string }> = {
   failed: { dot: "status-dot--error", label: "Failed" },
 };
 
+/**
+ * Deployments page — Perplexity "Library" style.
+ * Empty state with "Your library is empty" + Notion-like clean rows.
+ */
 export default function DeploymentsPage() {
+  const [search, setSearch] = useState("");
+  const [deployments] = useState(initialDeployments);
+
+  const filtered = deployments.filter(
+    (d) =>
+      d.name.toLowerCase().includes(search.toLowerCase()) ||
+      d.version.includes(search),
+  );
+
+  const isEmpty = filtered.length === 0;
+
   return (
-    <div className="space-y-4 sm:space-y-6">
+    <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-        <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-white">Deployments</h1>
-          <p className="text-xs sm:text-sm text-jarvis-muted mt-0.5 sm:mt-1">
-            Manage running services and rollbacks
-          </p>
-        </div>
-        <button className="px-4 py-2 min-h-[44px] rounded-lg bg-jarvis-neon text-white text-sm font-medium hover:bg-jarvis-accent-hover transition-colors self-start sm:self-auto">
-          + New Deployment
+      <div className="flex items-center justify-between">
+        <h1 className="text-xl font-semibold text-white">Threads</h1>
+        <button className="px-4 py-2 rounded-lg bg-jarvis-neon text-white text-sm font-medium hover:bg-jarvis-accent-hover transition-colors">
+          + New
         </button>
       </div>
 
-      {/* ── Desktop Table (hidden on mobile) ── */}
-      <div className="hidden sm:block glass rounded-xl overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-jarvis-border">
-                <th className="text-left px-4 py-3 text-jarvis-muted font-medium">
-                  Name
-                </th>
-                <th className="text-left px-4 py-3 text-jarvis-muted font-medium">
-                  Version
-                </th>
-                <th className="text-left px-4 py-3 text-jarvis-muted font-medium">
-                  Status
-                </th>
-                <th className="text-left px-4 py-3 text-jarvis-muted font-medium">
-                  Uptime
-                </th>
-                <th className="text-left px-4 py-3 text-jarvis-muted font-medium">
-                  Last Deployed
-                </th>
-                <th className="text-right px-4 py-3 text-jarvis-muted font-medium">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {deployments.map((dep) => {
-                const s = statusConfig[dep.status];
-                return (
-                  <tr
-                    key={dep.id}
-                    className="border-b border-jarvis-border last:border-b-0 hover:bg-jarvis-card transition-colors"
-                  >
-                    <td className="px-4 py-3 text-white font-medium">
-                      {dep.name}
-                    </td>
-                    <td className="px-4 py-3 text-jarvis-muted">
-                      <code className="text-xs bg-jarvis-card px-1.5 py-0.5 rounded">
-                        {dep.version}
-                      </code>
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="flex items-center gap-2">
-                        <span className={`status-dot ${s.dot}`} />
-                        <span className="text-jarvis-text">{s.label}</span>
-                      </div>
-                    </td>
-                    <td className="px-4 py-3 text-jarvis-text">{dep.uptime}</td>
-                    <td className="px-4 py-3 text-jarvis-muted">
-                      {dep.lastDeployed}
-                    </td>
-                    <td className="px-4 py-3 text-right">
-                      <button className="text-xs px-2 py-1 rounded bg-jarvis-card text-jarvis-muted hover:text-white hover:bg-jarvis-border transition-colors">
-                        Manage
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+      {/* Search */}
+      <div className="flex items-center gap-3 bg-jarvis-surface border border-jarvis-border rounded-xl px-4 py-3 focus-within:border-jarvis-neon/50 focus-within:ring-1 focus-within:ring-jarvis-neon/20 transition-all">
+        <span className="text-jarvis-muted flex-shrink-0">🔍</span>
+        <input
+          type="text"
+          placeholder="Search threads..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="flex-1 bg-transparent text-sm text-jarvis-text placeholder-jarvis-muted outline-none"
+        />
       </div>
 
-      {/* ── Mobile Card View (hidden on desktop) ── */}
-      <div className="sm:hidden space-y-3">
-        {deployments.map((dep) => {
-          const s = statusConfig[dep.status];
-          return (
-            <div
-              key={dep.id}
-              className="glass rounded-xl p-3 space-y-2"
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-semibold text-white">
-                  {dep.name}
-                </span>
-                <span className={`status-dot ${s.dot}`} />
-              </div>
-              <div className="flex items-center gap-2 text-xs text-jarvis-muted">
-                <span>Version:</span>
-                <code className="text-xs bg-jarvis-card px-1.5 py-0.5 rounded text-jarvis-text">
-                  {dep.version}
-                </code>
-              </div>
-              <div className="flex items-center gap-2 text-xs">
-                <span className="text-jarvis-muted">Status:</span>
-                <span className="text-jarvis-text">{s.label}</span>
-              </div>
-              <div className="flex items-center gap-2 text-xs">
-                <span className="text-jarvis-muted">Uptime:</span>
-                <span className="text-jarvis-text">{dep.uptime}</span>
-              </div>
-              <div className="flex items-center gap-2 text-xs">
-                <span className="text-jarvis-muted">Last Deployed:</span>
-                <span className="text-jarvis-text">{dep.lastDeployed}</span>
-              </div>
-              <button className="w-full mt-1 py-2 min-h-[44px] rounded-lg text-xs text-jarvis-neon bg-jarvis-neon/10 hover:bg-jarvis-neon/20 transition-colors">
-                ▲ More Details
-              </button>
-            </div>
-          );
-        })}
-      </div>
+      {isEmpty ? (
+        /* ── Empty State ── */
+        <div className="flex flex-col items-center justify-center py-16 text-center">
+          <div className="text-3xl mb-4 text-jarvis-muted">📚</div>
+          <h3 className="text-base font-medium text-jarvis-text mb-1">Your library is empty</h3>
+          <p className="text-sm text-jarvis-muted mb-6">
+            Deployments and threads will appear here
+          </p>
+          <button className="px-4 py-2 rounded-lg bg-jarvis-neon text-white text-sm font-medium hover:bg-jarvis-accent-hover transition-colors">
+            + Create your first thread
+          </button>
+        </div>
+      ) : (
+        /* ── Notion-like table ── */
+        <div className="rounded-xl bg-jarvis-surface border border-jarvis-border overflow-hidden">
+          {/* Desktop table */}
+          <div className="hidden sm:block overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-jarvis-border">
+                  <th className="text-left px-4 py-3 text-jarvis-muted font-medium text-xs">Name</th>
+                  <th className="text-left px-4 py-3 text-jarvis-muted font-medium text-xs">Version</th>
+                  <th className="text-left px-4 py-3 text-jarvis-muted font-medium text-xs">Status</th>
+                  <th className="text-left px-4 py-3 text-jarvis-muted font-medium text-xs">Uptime</th>
+                  <th className="text-left px-4 py-3 text-jarvis-muted font-medium text-xs">Deployed</th>
+                  <th className="text-right px-4 py-3 text-jarvis-muted font-medium text-xs">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filtered.map((dep) => {
+                  const s = statusConfig[dep.status];
+                  return (
+                    <tr
+                      key={dep.id}
+                      className="border-b border-jarvis-border last:border-b-0 hover:bg-white/[0.02] transition-colors"
+                    >
+                      <td className="px-4 py-3 text-jarvis-text font-medium">{dep.name}</td>
+                      <td className="px-4 py-3">
+                        <code className="text-xs text-jarvis-muted bg-jarvis-base px-1.5 py-0.5 rounded">
+                          {dep.version}
+                        </code>
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="flex items-center gap-2">
+                          <span className={`status-dot ${s.dot}`} />
+                          <span className="text-xs text-jarvis-text">{s.label}</span>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-xs text-jarvis-text">{dep.uptime}</td>
+                      <td className="px-4 py-3 text-xs text-jarvis-muted">{dep.lastDeployed}</td>
+                      <td className="px-4 py-3 text-right">
+                        <button className="text-xs px-2 py-1 rounded bg-jarvis-base text-jarvis-muted hover:text-jarvis-text transition-colors">
+                          Manage
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Mobile list */}
+          <div className="sm:hidden">
+            {filtered.map((dep) => {
+              const s = statusConfig[dep.status];
+              return (
+                <div
+                  key={dep.id}
+                  className="px-4 py-3 border-b border-jarvis-border last:border-b-0"
+                >
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-sm text-jarvis-text font-medium">{dep.name}</span>
+                    <span className={`status-dot ${s.dot}`} />
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-jarvis-muted">
+                    <code className="bg-jarvis-base px-1 py-0.5 rounded">{dep.version}</code>
+                    <span>·</span>
+                    <span>{s.label}</span>
+                    <span>·</span>
+                    <span>{dep.uptime}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

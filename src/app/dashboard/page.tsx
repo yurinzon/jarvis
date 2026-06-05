@@ -1,92 +1,160 @@
 "use client";
 
 import React from "react";
-import StatsGrid from "@/components/Dashboard/StatsGrid";
-import ActivityFeed from "@/components/Dashboard/ActivityFeed";
 
 /**
- * J.A.R.V.I.S. Main Dashboard — Command Center
+ * J.A.R.V.I.S. Discover — Perplexity-style dashboard.
  */
 export default function DashboardPage() {
-  const stats = [
-    { label: "Active Agents", value: 3, delta: "+1", deltaPositive: true },
-    { label: "Skills Loaded", value: 12, delta: "+2", deltaPositive: true },
-    { label: "Uptime", value: "72h", delta: undefined },
-    { label: "System Status", value: "Optimal", delta: undefined },
+  const agentStatuses = [
+    { name: "Researcher", status: "active" as const },
+    { name: "CodeReviewer", status: "active" as const },
+    { name: "Sentinel", status: "idle" as const },
+  ];
+
+  const suggestions = [
+    {
+      icon: "✨",
+      title: "Create a new agent",
+      desc: "Define role, skills, and model",
+    },
+    {
+      icon: "🎤",
+      title: "Voice commands",
+      desc: "Activate voice loop for hands-free",
+    },
+    {
+      icon: "🩺",
+      title: "System diagnostics",
+      desc: "Check health, logs, and performance",
+    },
+    {
+      icon: "🔄",
+      title: "Agent orchestration",
+      desc: "Route tasks between agents",
+    },
   ];
 
   const activities = [
     {
-      id: "1",
-      type: "agent" as const,
-      message: "Researcher agent deployed and active",
-      timestamp: "2 min ago",
-      status: "success" as const,
+      icon: "🤖",
+      text: "Researcher agent deployed and active",
+      time: "2 min ago",
     },
     {
-      id: "2",
-      type: "system" as const,
-      message: "Self-knowledge document refreshed",
-      timestamp: "15 min ago",
-      status: "success" as const,
+      icon: "⚙️",
+      text: "Self-knowledge document refreshed",
+      time: "15 min ago",
     },
     {
-      id: "3",
-      type: "skill" as const,
-      message: "web-search skill registered",
-      timestamp: "1h ago",
-      status: "success" as const,
+      icon: "🧩",
+      text: "web-search skill registered",
+      time: "1h ago",
     },
     {
-      id: "4",
-      type: "deployment" as const,
-      message: "Dashboard v2 deployed",
-      timestamp: "2h ago",
-      status: "success" as const,
+      icon: "🚀",
+      text: "Dashboard v2 deployed",
+      time: "2h ago",
     },
   ];
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-white">Command Center</h1>
-        <p className="text-sm text-jarvis-muted mt-1">
-          J.A.R.V.I.S. System Status — All systems nominal
-        </p>
+    <div className="space-y-8">
+      {/* Search bar */}
+      <div className="flex items-center gap-3 bg-jarvis-surface border border-jarvis-border rounded-xl px-4 py-3 focus-within:border-jarvis-neon/50 focus-within:ring-1 focus-within:ring-jarvis-neon/20 transition-all">
+        <span className="text-jarvis-muted flex-shrink-0">🔍</span>
+        <input
+          type="text"
+          placeholder="Ask J.A.R.V.I.S. anything..."
+          className="flex-1 bg-transparent text-sm text-jarvis-text placeholder-jarvis-muted outline-none"
+        />
       </div>
 
-      {/* Stats Grid */}
-      <StatsGrid stats={stats} />
-
-      {/* Two-column layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Recent Activity */}
-        <div className="lg:col-span-2">
-          <ActivityFeed activities={activities} />
+      {/* Stats row — minimal */}
+      <div className="flex items-center gap-4 sm:gap-6 text-sm">
+        <div className="flex items-center gap-2">
+          <span className="text-jarvis-muted">Agents</span>
+          <span className="text-jarvis-text font-medium">3</span>
         </div>
-
-        {/* Quick Actions */}
-        <div className="space-y-3">
-          <h3 className="text-sm font-semibold text-white">Quick Actions</h3>
-          <div className="glass rounded-xl p-4 space-y-2">
-            {[
-              { label: "Deploy New Agent", icon: "🤖" },
-              { label: "Run Self-Knowledge Sync", icon: "🔄" },
-              { label: "View System Logs", icon: "📋" },
-              { label: "Configure Integrations", icon: "🔗" },
-            ].map((action) => (
-              <button
-                key={action.label}
-                className="w-full text-left px-3 py-2 rounded-lg text-sm text-jarvis-text hover:bg-jarvis-card transition-colors flex items-center gap-2"
-              >
-                <span>{action.icon}</span>
-                <span>{action.label}</span>
-              </button>
-            ))}
-          </div>
+        <div className="w-px h-4 bg-jarvis-border" />
+        <div className="flex items-center gap-2">
+          <span className="text-jarvis-muted">Skills</span>
+          <span className="text-jarvis-text font-medium">12</span>
+        </div>
+        <div className="w-px h-4 bg-jarvis-border" />
+        <div className="flex items-center gap-2">
+          <span className="text-jarvis-muted">Uptime</span>
+          <span className="text-jarvis-text font-medium">72h</span>
+        </div>
+        <div className="w-px h-4 bg-jarvis-border" />
+        <div className="flex items-center gap-2">
+          <span className="text-jarvis-muted">Status</span>
+          <span className="text-jarvis-green font-medium">Optimal</span>
         </div>
       </div>
+
+      {/* Agent Status */}
+      <section>
+        <h2 className="text-sm font-medium text-jarvis-text mb-3">Agent Status</h2>
+        <div className="flex flex-wrap gap-3">
+          {agentStatuses.map((agent) => (
+            <div
+              key={agent.name}
+              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-jarvis-surface border border-jarvis-border"
+            >
+              <span
+                className={`status-dot ${
+                  agent.status === "active"
+                    ? "status-dot--active"
+                    : "status-dot--idle"
+                }`}
+              />
+              <span className="text-sm text-jarvis-text">{agent.name}</span>
+              <span className="text-xs text-jarvis-muted">
+                {agent.status === "active" ? "Active" : "Idle"}
+              </span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Suggested */}
+      <section>
+        <h2 className="text-sm font-medium text-jarvis-text mb-3">Suggested</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {suggestions.map((item) => (
+            <div
+              key={item.title}
+              className="flex items-start gap-3 px-4 py-3 rounded-xl bg-jarvis-surface border border-jarvis-border hover:border-jarvis-neon/30 transition-all cursor-pointer"
+            >
+              <span className="text-base mt-0.5">{item.icon}</span>
+              <div>
+                <p className="text-sm text-jarvis-text font-medium">{item.title}</p>
+                <p className="text-xs text-jarvis-muted mt-0.5">{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Activity */}
+      <section>
+        <h2 className="text-sm font-medium text-jarvis-text mb-3">Activity</h2>
+        <div className="rounded-xl bg-jarvis-surface border border-jarvis-border overflow-hidden">
+          {activities.map((item, i) => (
+            <div
+              key={i}
+              className="flex items-center gap-3 px-4 py-3 border-b border-jarvis-border last:border-b-0"
+            >
+              <span className="text-base flex-shrink-0">{item.icon}</span>
+              <div className="flex-1 min-w-0 flex items-center justify-between gap-2">
+                <span className="text-sm text-jarvis-text truncate">{item.text}</span>
+                <span className="text-xs text-jarvis-muted flex-shrink-0">{item.time}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

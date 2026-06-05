@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  --color-jarvis-base: #050505;
-  --color-jarvis-surface: #0a0a0a;
-  --color-jarvis-card: rgba(255, 255, 255, 0.03);
-  --color-jarvis-border: rgba(255, 255, 255, 0.06);
+  --color-jarvis-base: #111111;
+  --color-jarvis-surface: #1a1a1a;
+  --color-jarvis-card: #1a1a1a;
+  --color-jarvis-border: #2a2a2a;
   --color-jarvis-neon: #6366f1;
   --color-jarvis-purple: #a855f7;
   --color-jarvis-accent: #6366f1;
@@ -26,7 +26,7 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  background-color: #050505;
+  background-color: #111111;
   color: #e2e8f0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, sans-serif;
@@ -37,21 +37,20 @@ a {
   text-decoration: none;
 }
 
-/* ── Glassmorphism Card ── */
-.glass {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+/* ── Card (replaces .glass) ── */
+.card {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 1rem;
 }
 
-.glass-hover {
-  transition: all 0.2s ease;
+.card-hover {
+  transition: all 0.15s ease;
 }
 
-.glass-hover:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(99, 102, 241, 0.2);
+.card-hover:hover {
+  border-color: rgba(99, 102, 241, 0.3);
 }
 
 /* ── Status Dots ── */

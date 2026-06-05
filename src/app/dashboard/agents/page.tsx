@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import AgentCard from "@/components/Dashboard/AgentCard";
 
 const allAgents = [
   {
@@ -16,7 +15,7 @@ const allAgents = [
     name: "CodeReviewer",
     description: "Reviews pull requests for code quality, security, and best practices.",
     model: "gpt-4",
-    status: "idle" as const,
+    status: "active" as const,
     skills: ["code-review", "security-scan", "linting"],
     lastActive: "30 min ago",
   },
@@ -24,14 +23,20 @@ const allAgents = [
     name: "Sentinel",
     description: "Monitors system health, checks for anomalies, and sends alerts.",
     model: "gpt-4-turbo",
-    status: "active" as const,
+    status: "idle" as const,
     skills: ["monitoring", "alerting", "health-check"],
     lastActive: "2 min ago",
   },
 ];
 
+const statusConfig = {
+  active: { dot: "status-dot--active", label: "Active" },
+  idle: { dot: "status-dot--idle", label: "Idle" },
+  error: { dot: "status-dot--error", label: "Error" },
+} as const;
+
 /**
- * Agent Management page — view and control all registered agents.
+ * Agents page — Thread list style, like Perplexity threads.
  */
 export default function AgentsPage() {
   const [search, setSearch] = useState("");
@@ -43,45 +48,73 @@ export default function AgentsPage() {
   );
 
   return (
-    <div className="space-y-4 sm:space-y-6">
+    <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-        <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-white">Agent Management</h1>
-          <p className="text-xs sm:text-sm text-jarvis-muted mt-0.5 sm:mt-1">
-            Manage your J.A.R.V.I.S. agent fleet
-          </p>
-        </div>
-        <button className="px-4 py-2 min-h-[44px] rounded-lg bg-jarvis-neon text-white text-sm font-medium hover:bg-jarvis-accent-hover transition-colors self-start sm:self-auto">
-          + New Agent
+      <div className="flex items-center justify-between">
+        <h1 className="text-xl font-semibold text-white">Library</h1>
+        <button className="px-4 py-2 rounded-lg bg-jarvis-neon text-white text-sm font-medium hover:bg-jarvis-accent-hover transition-colors">
+          + New
         </button>
       </div>
 
       {/* Search */}
-      <div className="relative">
-        <svg
-          className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-jarvis-muted pointer-events-none"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth="2"
-        >
-          <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
+      <div className="flex items-center gap-3 bg-jarvis-surface border border-jarvis-border rounded-xl px-4 py-3 focus-within:border-jarvis-neon/50 focus-within:ring-1 focus-within:ring-jarvis-neon/20 transition-all">
+        <span className="text-jarvis-muted flex-shrink-0">🔍</span>
         <input
           type="text"
           placeholder="Search agents..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full sm:max-w-xs pl-10 pr-4 py-2.5 min-h-[44px] rounded-xl text-sm bg-jarvis-surface border border-jarvis-border text-jarvis-text placeholder-jarvis-muted focus:outline-none focus:border-jarvis-neon/50 focus:ring-1 focus:ring-jarvis-neon/20 transition-all"
+          className="flex-1 bg-transparent text-sm text-jarvis-text placeholder-jarvis-muted outline-none"
         />
       </div>
 
-      {/* Agent grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-        {filtered.map((agent) => (
-          <AgentCard key={agent.name} {...agent} />
-        ))}
+      {/* Thread list */}
+      <div className="rounded-xl bg-jarvis-surface border border-jarvis-border overflow-hidden">
+        {filtered.map((agent) => {
+          const s = statusConfig[agent.status];
+          const initials = agent.name.slice(0, 2).toUpperCase();
+          return (
+            <div
+              key={agent.name}
+              className="flex items-start gap-3 px-4 py-3.5 border-b border-jarvis-border last:border-b-0 hover:bg-white/[0.02] transition-colors"
+            >
+              {/* Avatar (initials) */}
+              <div className="w-9 h-9 rounded-full bg-jarvis-neon/15 flex items-center justify-center text-sm font-semibold text-jarvis-neon flex-shrink-0">
+                {initials}
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-0.5">
+                  <span className="text-sm font-medium text-jarvis-text">{agent.name}</span>
+                  <span className={`status-dot ${s.dot}`} />
+                  <span className="text-xs text-jarvis-muted">{s.label}</span>
+                </div>
+                <p className="text-xs text-jarvis-muted line-clamp-1 mb-1.5">{agent.description}</p>
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] text-jarvis-muted bg-jarvis-base px-1.5 py-0.5 rounded font-mono">
+                    {agent.model}
+                  </span>
+                  {agent.skills.slice(0, 3).map((skill) => (
+                    <span
+                      key={skill}
+                      className="text-[10px] text-jarvis-muted bg-jarvis-base px-1.5 py-0.5 rounded"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                  {agent.skills.length > 3 && (
+                    <span className="text-[10px] text-jarvis-muted">
+                      +{agent.skills.length - 3}
+                    </span>
+                  )}
+                </div>
+              </div>
+              <span className="text-xs text-jarvis-muted flex-shrink-0 mt-1">
+                {agent.lastActive}
+              </span>
+            </div>
+          );
+        })}
       </div>
 
       {filtered.length === 0 && (

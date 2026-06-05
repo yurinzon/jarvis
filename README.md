@@ -2,7 +2,7 @@
 
 **Autonomous AI Command Center**
 
-J.A.R.V.I.S. orchestrates agents, manages skills, provides a real-time 3D interactive interface, and grounds its self-knowledge in its own codebase.
+J.A.R.V.I.S. orchestrates agents, manages skills, provides a clean Perplexity/Arc Search style interface, and grounds its self-knowledge in its own codebase.
 
 ## Architecture
 
@@ -25,22 +25,15 @@ J.A.R.V.I.S. orchestrates agents, manages skills, provides a real-time 3D intera
 | Self-knowledge generators | `generators/agents.ts`, `generators/skills.ts` | ✅ |
 | Vitest tests | 19 tests across all 3 components | ✅ |
 
-### 🆕 Track B: Blob UI (Interactive Sphere)
+### 🆕 Track B: Dashboard UI (Perplexity Style)
 | Component | Description | Status |
 |-----------|------------|--------|
-| `BlobSphere.tsx` | React Three Fiber 3D sphere with vertex displacement (breathing), particle ring, glow shader | ✅ |
-| `BlobController.tsx` | Controls: color presets, size/sensitivity sliders, drag-to-move, voice indicator | ✅ |
-| `BlobUIWrapper.tsx` | Full-page wrapper integrating sphere + controller + gradient background | ✅ |
-| Landing page | Logo reveal animation → BlobUI entry point with "Say J.A.R.V.I.S. to activate" | ✅ |
-
-### 🆕 Track C: Dashboard (NOVA Integration)
-| Component | Description | Status |
-|-----------|------------|--------|
-| Dashboard layout | NavBar + narrow sidebar (56px) + main content area | ✅ |
-| Main dashboard | StatsGrid, ActivityFeed, Quick Actions | ✅ |
-| Agent management | AgentCard grid with status dots, skills, activation toggle | ✅ |
-| Deployments table | Full deployments table with status, uptime, version, manage actions | ✅ |
-| Design system | Dark theme (#050505), neon blue/purple accents, glassmorphism, Tailwind CSS | ✅ |
+| Dashboard layout | Desktop sidebar (w-64) + mobile bottom nav (5 tabs) | ✅ |
+| Landing page | Minimal: search bar + suggested searches + "Enter Command Center" | ✅ |
+| Discover page | Search bar + Agent Status chips + Suggested cards + Activity list | ✅ |
+| Agent Management | Thread-list style: initials avatar, name, skills, status dot | ✅ |
+| Deployments/Library | Notion-like table + "Your library is empty" empty state | ✅ |
+| Design system | Clean dark theme (#111111), thin borders, text-driven, indigo accent | ✅ |
 
 ## Project Structure
 
@@ -56,22 +49,22 @@ src/
 │   └── SkillRegistry.test.ts     # Tests
 ├── app/
 │   ├── layout.tsx                # Root layout
-│   ├── globals.css               # Tailwind + custom styles
-│   ├── page.tsx                  # Landing page with BlobUI
+│   ├── globals.css               # Tailwind v4 + custom styles
+│   ├── page.tsx                  # Minimal landing page with search bar
 │   └── dashboard/
-│       ├── layout.tsx            # Dashboard layout (nav + sidebar)
-│       ├── page.tsx              # Main command center
-│       ├── agents/page.tsx       # Agent management
-│       └── deployments/page.tsx  # Deployments table
+│       ├── layout.tsx            # Sidebar + bottom nav layout
+│       ├── page.tsx              # Discover page (Perplexity-style)
+│       ├── agents/page.tsx       # Agent management (thread list)
+│       └── deployments/page.tsx  # Deployments / Library (Notion table + empty state)
 ├── components/
 │   ├── BlobUI/
-│   │   ├── BlobSphere.tsx        # R3F 3D blob with particle ring
-│   │   ├── BlobController.tsx    # Settings overlay
-│   │   └── BlobUIWrapper.tsx     # Full-page wrapper
+│   │   ├── BlobSphere.tsx        # R3F 3D blob (legacy, available for settings)
+│   │   ├── BlobController.tsx    # Settings overlay (legacy)
+│   │   └── BlobUIWrapper.tsx     # Simplified background accent
 │   └── Dashboard/
-│       ├── AgentCard.tsx         # Agent status card
-│       ├── StatsGrid.tsx         # Live statistics grid
-│       └── ActivityFeed.tsx      # Real-time activity feed
+│       ├── AgentCard.tsx         # Thread-list style agent row
+│       ├── StatsGrid.tsx         # Minimal inline stats
+│       └── ActivityFeed.tsx      # Perplexity thread/history style
 ├── self-knowledge/
 │   ├── orchestrator.ts           # Coordinates doc generation
 │   ├── parser.ts                 # AUTO block parser
@@ -118,11 +111,16 @@ tsx src/agents/AgentFactory.ts create-agent Researcher \
 
 ## Design System
 
-- **Base:** `#050505` (deep dark background)
-- **Accent:** `#6366f1` (indigo neon) / `#a855f7` (purple secondary)
-- **Cards:** Glassmorphism with `rgba(255,255,255,0.03)` background + blur
-- **Status dots:** Green (active), Yellow (idle), Red (error) — Linear-style
-- **Typography:** White text on dark, muted text `#64748b`
+- **Base:** `#111111` — clean dark bg
+- **Surface:** `#1a1a1a` — cards, sidebar, containers
+- **Border:** `#2a2a2a` — subtle dividers
+- **Accent:** `#6366f1` (indigo-500) / `#818cf8` (hover)
+- **Text:** `#e2e8f0` primary / `#64748b` muted
+- **Status:** `#22c55e` (active/green), `#eab308` (idle/yellow), `#ef4444` (error/red)
+- **Cards:** Thin border `1px solid #2a2a2a`, no glassmorphism — clean and text-driven
+- **Typography:** -apple-system, BlinkMacSystemFont; information-dense
+
+The UI is inspired by Perplexity AI and Arc Search: information-dense, text-driven, search-first. White space, thin borders, no heavy visuals.
 
 ## Tests
 
