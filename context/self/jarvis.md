@@ -30,9 +30,12 @@ _No capabilities registered._
 ## Integrations
 
 <!-- AUTO-START: integrations -->
-<!-- No integrations configured. Add integration files to `src/integrations/`. -->
+## Registered Integrations
 
-_No integrations registered._
+| Integration | Kind | Location |
+|-------------|------|----------|
+| **openagents** | directory | `src/integrations/openagents/` |
+
 <!-- AUTO-END: integrations -->
 
 ## Voice Loop
@@ -56,6 +59,7 @@ The voice loop provides:
 ## Recent Activity (Last 14 Days)
 
 ```
+7f8fadb refactor: Perplexity/Arc Search UI redesign
 f256cac J.A.R.V.I.S. mobile responsiveness overhaul
 0155185 feat: Static export config + deploy
 af5b1f0 fix: Build fixes — BlobSphere bufferAttrib, tsconfig rootDir, next.config.mjs
